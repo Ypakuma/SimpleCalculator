@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder numBuilder = new StringBuilder();
 
             for (char ch : expression) {
-                if (Character.isDigit(ch) || ch == '.') { // 当前字符是数字
+                if (Character.isDigit(ch)) { // 当前字符是数字，直接加到数字容器
+                    numBuilder.append(ch);
+                } else if (ch == '.') {
+                    numBuilder.append(0);
                     numBuilder.append(ch);
                 } else if (ch == '√') { // 当前字符是单目运算符根号
                     if (numBuilder.length() != 0) {
@@ -101,11 +104,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // 将最后一个数压入栈
-            if (numBuilder.length() == 0) {
-                throw new ArrayStoreException("102");
+            if (numBuilder.length() != 0) {
+                numStack.push(Double.parseDouble(numBuilder.toString()));
             }
-            numStack.push(Double.parseDouble(numBuilder.toString()));
-
             while (!operatorStack.empty()) {
                 stackCalculate();
             }
@@ -116,13 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 double result = numStack.pop();
                 // 判断结果是否为整数
                 if (result % 1 == 0) {
-                    resultText.setText(String.valueOf((int)result));
-                }
-                else {
+                    resultText.setText(String.valueOf((int) result));
+                } else {
                     resultText.setText(String.valueOf(result));
                 }
             } else {
-                throw new ArrayStoreException("103");
+                throw new ArrayStoreException("102");
             }
         } catch (ArrayStoreException e) {
             Log.d(TAG, e.getMessage());
@@ -305,7 +305,21 @@ public class MainActivity extends AppCompatActivity {
         digitButton.setOnClickListener(digitButtonClickListener);
 
         digitButton = (Button) findViewById(R.id.button_point);
-        digitButton.setOnClickListener(digitButtonClickListener);
+        digitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 上次输入完成后，重新输入，清空结果
+                if (expressionText.length() == 0) {
+                    resultText.setText("");
+                } else if (expressionText.getText().charAt(expressionText.length() - 1) == '.') {
+                    // 最后一个字符是'.' 直接返回
+                    return;
+                }
+
+                expressionText.append(".");
+                calculate();
+            }
+        });
     }
 
     private void initFunctionButtons() {
@@ -331,11 +345,14 @@ public class MainActivity extends AppCompatActivity {
         functionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expressionText.append("√");
-                // 只有结果时，按下根号，自动计算结果的根号
-                if (expressionText.length() == 1){
-                    expressionText.append(resultText.getText());
-                    calculate();
+                if (expressionText.length() == 0) { // 输入的根号是第一个
+                    expressionText.append("√");
+                    if (resultText.length() != 0) { // 此时结果不为空，自动计算结果的根号
+                        expressionText.append(resultText.getText());
+                        calculate();
+                    }
+                } else if (expressionText.getText().charAt(expressionText.length() - 1) != '√') {
+                    expressionText.append("√");
                 }
             }
         });

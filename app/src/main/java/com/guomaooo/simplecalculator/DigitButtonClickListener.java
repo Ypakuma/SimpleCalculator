@@ -7,6 +7,7 @@ class DigitButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         MainActivity activity = (MainActivity) v.getContext();
+        // 上次输入完成后，重新输入，清空结果
         if (activity.getExpressionText().length() == 0) {
             activity.setResultText("");
         }
@@ -41,9 +42,6 @@ class DigitButtonClickListener implements View.OnClickListener {
                 break;
             case R.id.button_9:
                 ch = "9";
-                break;
-            case R.id.button_point:
-                ch = ".";
                 break;
             default:
                 ch = "";
