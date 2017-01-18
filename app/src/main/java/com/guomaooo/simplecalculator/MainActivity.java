@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView expressionText;
     private TextView resultText;
 
-    private ExpButtonClickListener expButtonClickListener = new ExpButtonClickListener();
+    private FunctionButtonClickListener functionButtonClickListener = new FunctionButtonClickListener();
     private DigitButtonClickListener digitButtonClickListener = new DigitButtonClickListener();
 
 
@@ -327,19 +327,19 @@ public class MainActivity extends AppCompatActivity {
         Button functionButton;
 
         functionButton = (Button) findViewById(R.id.button_add);
-        functionButton.setOnClickListener(expButtonClickListener);
+        functionButton.setOnClickListener(functionButtonClickListener);
 
         functionButton = (Button) findViewById(R.id.button_min);
-        functionButton.setOnClickListener(expButtonClickListener);
+        functionButton.setOnClickListener(functionButtonClickListener);
 
         functionButton = (Button) findViewById(R.id.button_mul);
-        functionButton.setOnClickListener(expButtonClickListener);
+        functionButton.setOnClickListener(functionButtonClickListener);
 
         functionButton = (Button) findViewById(R.id.button_dev);
-        functionButton.setOnClickListener(expButtonClickListener);
+        functionButton.setOnClickListener(functionButtonClickListener);
 
         functionButton = (Button) findViewById(R.id.button_pow);
-        functionButton.setOnClickListener(expButtonClickListener);
+        functionButton.setOnClickListener(functionButtonClickListener);
 
         functionButton = (Button) findViewById(R.id.button_sqrt);
         functionButton.setOnClickListener(new View.OnClickListener() {

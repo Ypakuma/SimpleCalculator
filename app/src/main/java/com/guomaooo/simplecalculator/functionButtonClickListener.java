@@ -2,7 +2,7 @@ package com.guomaooo.simplecalculator;
 
 import android.view.View;
 
-class ExpButtonClickListener implements View.OnClickListener {
+class FunctionButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
@@ -64,7 +64,6 @@ class ExpButtonClickListener implements View.OnClickListener {
                 }
             }
         }
-
 
         switch (v.getId()) {
             case R.id.button_add:
