@@ -1,9 +1,32 @@
+erated by Eclipse
+proguard/
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# Intellij
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/libraries
+
+# Keystore files
+*.jks
+
+# External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+.idea/vcs.xml
+app/libs/
+app/src/main/res/drawable/
+libs/
+src/main/res/drawable/
