@@ -66,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 if (Character.isDigit(ch)) { // 当前字符是数字，直接加到数字容器
                     numBuilder.append(ch);
                 } else if (ch == '.') {
-                    numBuilder.append(0);
+                    if (numBuilder.length() == 0) {
+                        numBuilder.append(0);
+                    }
                     numBuilder.append(ch);
                 } else if (ch == '√') { // 当前字符是单目运算符根号
                     if (numBuilder.length() != 0) {
@@ -310,10 +312,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 上次输入完成后，重新输入，清空结果
                 if (expressionText.length() == 0) {
-                    resultText.setText("");
-                } else if (expressionText.getText().charAt(expressionText.length() - 1) == '.') {
-                    // 最后一个字符是'.' 直接返回
-                    return;
+                    resultText.setText("0");
+                } else {
+                    // 判断当前数字是否出现'.'
+                    // 从最后往前看
+                    int index = expressionText.length() - 1;
+                    while (index >= 0) {
+                        char ch = expressionText.getText().charAt(index);
+                        if (ch == '.') { // 出现'.' 直接返回
+                            return;
+                        } else if (!Character.isDigit(ch)) { // 当前数结束，未出现'.'
+                            break;
+                        }
+                        --index;
+                    }
                 }
 
                 expressionText.append(".");
